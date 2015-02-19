@@ -1,5 +1,5 @@
 == Strangely this project doesn't work (╯°□°）╯︵ ┻━┻
-NOTE: Update! Found the culprit it's reactor-net's dependency on netty-all:4.0.25.Final
+NOTE: Update! Found the culprit it's reactor-net's dependency on netty-all:4.0.25.Final I fixed the problem, so to break it again uncomment reactor-net dependency in build.gradle and remove the exclusion.
 
 [listing]
 .Launch
