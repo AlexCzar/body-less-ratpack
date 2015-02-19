@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><!--@thymesVar id="user" type="String"-->
+    <title th:text="'Test Thymeleaf Template by ' + ${user}">Page Title</title></head>
+<body>
+<!--@thymesVar id="user" type="String"-->
+<h1 th:text="${user} + ' likes Ratpack'">User likes Ratpack</h1>
+</body>
+</html>

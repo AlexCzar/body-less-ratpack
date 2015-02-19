@@ -1,0 +1,63 @@
+== Strangely this project doesn't work (╯°□°）╯︵ ┻━┻
+NOTE: Update! Found the culprit it's reactor-net's dependency on netty-all:4.0.25.Final
+
+[listing]
+.Launch
+----
+./gradlew run
+----
+
+[listing]
+.Thymeleaf Works
+----
+curl 'http://localhost:5050'
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head><!--@thymesVar id="user" type="String"-->
+    <title>Test Thymeleaf Template by czar</title></head>
+<body>
+<!--@thymesVar id="user" type="String"-->
+<h1>czar likes Ratpack</h1>
+</body>
+</html>
+----
+
+[listing]
+.POST works
+----
+curl 'http://localhost:5050' --data 'I am a teapot'
+I am a teapot
+----
+
+[listing]
+.assets do not work
+----
+curl 'http://localhost:5050/foo.html'
+curl: (18) transfer closed with 22 bytes remaining to read
+----
+
+In the last snippet curl only returns error if user
+ becomes tired and shuts ratpack down. Otherwise it just hangs.
+ Interesting thing is—we do receive correct response headers, just no body (hence the project name ☺):
+
+[listing]
+.headers
+----
+curl -v 'http://localhost:5050/foo.html'                                                                                    18 ↵
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 5050 (#0)
+> GET /foo.html HTTP/1.1
+> User-Agent: curl/7.40.0
+> Host: localhost:5050
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< last-modified: Thu, 19 Feb 2015 19:51:45 GMT
+< content-type: text/html
+< content-length: 22
+< connection: keep-alive
+<
+
+----

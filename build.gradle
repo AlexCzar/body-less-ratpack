@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:0.9.13"
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.1"
+    }
+}
+
+plugins {
+    id 'groovy'
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '1.2.1'
+}
+
+ext {
+    reactorVersion = '2.0.0.RC1'
+}
+
+apply plugin: 'io.ratpack.ratpack-groovy'
+repositories {
+    jcenter()
+    maven { url "https://repo.spring.io/repo" } // for springloaded
+    maven { url "http://clinker.netty.io/nexus/content/repositories/snapshots" } // for netty snapshot
+}
+
+dependencies {
+    springloaded 'org.springframework:springloaded:1.2.2.BUILD-SNAPSHOT'
+    runtime 'org.slf4j:slf4j-simple:1.7.7'
+    compile ratpack.dependency('thymeleaf')
+    compile "io.projectreactor:reactor-core:$reactorVersion",
+            "io.projectreactor.spring:reactor-spring-context:$reactorVersion"
+//    compile("io.projectreactor:reactor-net:$reactorVersion") {
+//        exclude module: 'netty-all'
+//    }
+    testCompile 'junit:junit:4.11'
+}
+
